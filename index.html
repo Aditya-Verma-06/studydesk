@@ -128,17 +128,6 @@
     .category-card p { margin: 11px 0 14px; color: var(--muted); font-size: .78rem; line-height: 1.5; }
     .small-link { display: inline-flex; align-items: center; gap: 6px; color: #285b4c; font-size: .76rem; font-weight: 850; text-decoration: none; }
     .small-link:hover { text-decoration: underline; }
-    .pdf-library { margin-top: 15px; padding: 21px; border: 1px solid var(--line); border-radius: 18px; background: var(--white); scroll-margin-top: 100px; }
-    .pdf-library-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 15px; }
-    .pdf-library-head h4 { margin: 0; font-size: 1.05rem; letter-spacing: -.025em; }
-    .pdf-library-head p { margin: 3px 0 0; color: var(--muted); font-size: .78rem; }
-    .pdf-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
-    .pdf-row { display: flex; align-items: center; gap: 11px; min-width: 0; padding: 10px; border: 1px solid #edf0e8; border-radius: 12px; background: #fbfcf8; }
-    .pdf-file { display: grid; place-items: center; flex: 0 0 34px; height: 38px; border-radius: 9px; background: #fce9e5; color: #a04a3d; font-size: .58rem; font-weight: 900; }
-    .pdf-row a { min-width: 0; color: var(--ink); text-decoration: none; }
-    .pdf-row a:hover strong { color: var(--green); text-decoration: underline; }
-    .pdf-row strong { display: block; font-size: .79rem; line-height: 1.35; }
-    .pdf-row small { display: block; margin-top: 2px; color: var(--muted); font-size: .69rem; }
     .subject-detail + .subject-detail { border-top: 1px solid var(--line); padding-top: 37px; }
     .lac-panel { display: grid; grid-template-columns: 1.1fr .9fr; gap: 25px; padding: 27px; border: 1px solid #e2daf7; border-radius: var(--radius); background: #f4f0ff; }
     .lac-panel h4 { margin: 0 0 7px; font-family: Georgia, serif; font-weight: 500; font-size: 1.7rem; letter-spacing: -.04em; }
@@ -220,7 +209,6 @@
       .category-card { padding: 13px; min-height: 156px; }
       .category-card p { font-size: .73rem; }
       .lac-panel { grid-template-columns: 1fr; padding: 21px; }
-      .pdf-list { grid-template-columns: 1fr; }
       .extras-grid { grid-template-columns: 1fr; }
       .edit-steps { grid-template-columns: 1fr; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
@@ -321,26 +309,11 @@
           <div class="subject-title"><span class="subject-badge">SPC</span><div><h3>SPC resources</h3><p>Pick a format to find what you need.</p></div></div>
           <nav class="subject-menu" aria-label="SPC resource categories"><a href="#spc-notes">1. Notes</a><a href="#spc-short-notes">2. Short Notes</a><a href="#spc-mind-map">3. Mind map</a><a href="#spc-practice">4. Practice questions</a></nav>
           <div class="category-grid">
-            <article class="category-card" id="spc-notes"><div class="category-label"><h4>Notes</h4><span>▤</span></div><p>Ten SPC lecture PDFs are ready to open, from problem solving through bitwise operators.</p><a class="small-link" href="#spc-notes-list">Browse lecture notes <span>↗</span></a></article>
+            <article class="category-card" id="spc-notes"><div class="category-label"><h4>Notes</h4><span>▤</span></div><p>Add full chapter notes, class handouts or a Google Drive document link.</p><a class="small-link" href="#edit-guide">Add notes <span>↗</span></a></article>
             <article class="category-card" id="spc-short-notes"><div class="category-label"><h4>Short Notes</h4><span>✎</span></div><p>Keep concise revision pages and key definitions together.</p><a class="small-link" href="#edit-guide">Add short notes <span>↗</span></a></article>
             <article class="category-card" id="spc-mind-map"><div class="category-label"><h4>Mind map</h4><span>✳</span></div><p>Link a diagram, summary image or concept map for quick recall.</p><a class="small-link" href="#edit-guide">Add a mind map <span>↗</span></a></article>
             <article class="category-card" id="spc-practice"><div class="category-label"><h4>Practice questions</h4><span>☑</span></div><p>Add question sheets, solved examples or a self-test.</p><a class="small-link" href="#edit-guide">Add questions <span>↗</span></a></article>
           </div>
-          <section class="pdf-library" id="spc-notes-list" aria-labelledby="spc-notes-heading">
-            <div class="pdf-library-head"><div><h4 id="spc-notes-heading">SPC lecture notes</h4><p>Select a lecture to open its PDF.</p></div><span class="pill">10 PDFs</span></div>
-            <div class="pdf-list">
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/1.%20Lect%201-2%20SPC_Problem%20Solving.pdf" target="_blank" rel="noopener"><strong>Problem Solving</strong><small>Lectures 1–2 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/2.%20Lect%203-4%20SPC_Flowcharts,%20PseudoCode.pdf" target="_blank" rel="noopener"><strong>Flowcharts &amp; Pseudocode</strong><small>Lectures 3–4 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/3.%20Lect%205%20SPC_Introduction%20to%20C%20Programming.pdf" target="_blank" rel="noopener"><strong>Introduction to C Programming</strong><small>Lecture 5 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/4.%20Lect%206-7%20SPC_Basics%20of%20C%20Programming.pdf" target="_blank" rel="noopener"><strong>Basics of C Programming</strong><small>Lectures 6–7 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/5.%20Lect%206%20SPC_Data%20Types%20in%20C.pdf" target="_blank" rel="noopener"><strong>Data Types in C</strong><small>Lecture 6 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/6.%20Lect%206%20SPC_Basic%20Input-Output.pdf" target="_blank" rel="noopener"><strong>Basic Input–Output</strong><small>Lecture 6 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/7.%20Lect%207%20SPC_C%20Program%20Organization.pdf" target="_blank" rel="noopener"><strong>C Program Organization</strong><small>Lecture 7 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/8.%20Lect%208-9%20SPC_Operators%20in%20C.pdf" target="_blank" rel="noopener"><strong>Operators in C</strong><small>Lectures 8–9 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/9.%20Lect%2010-11%20SPC_Program%20Debugging%20%26%20Testing.pdf" target="_blank" rel="noopener"><strong>Program Debugging &amp; Testing</strong><small>Lectures 10–11 · SPC</small></a></div>
-              <div class="pdf-row"><span class="pdf-file">PDF</span><a href="study-files/SPC/10.%20Lect%2012%20SPC_Bitwise,%20sizeof()%20Operator.pdf" target="_blank" rel="noopener"><strong>Bitwise &amp; sizeof() Operator</strong><small>Lecture 12 · SPC</small></a></div>
-            </div>
-          </section>
         </section>
 
         <section class="subject-detail" id="fcs">
@@ -503,4 +476,3 @@ mkdir lab  # make a folder</code></pre>
 </body>
 </html>
 
-</html>
