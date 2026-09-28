@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A student-friendly home for course notes, short notes, mind maps, practice questions, lab manuals, and coding guides.">
+  <title>StudyDesk — Notes for every class</title>
+  <style>
+    :root {
+      --ink: #172b2a;
+      --muted: #657572;
+      --paper: #f7f7f1;
+      --white: #fffefa;
+      --line: #e2e7dd;
+      --green: #174e43;
+      --green-2: #dff0e4;
+      --lime: #d8f36a;
+      --coral: #ff8064;
+      --blue: #dceaff;
+      --lavender: #eee8ff;
+      --shadow: 0 18px 50px rgba(27, 52, 45, .09);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    .wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(247, 247, 241, .92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(226, 231, 221, .85);
+    }
+    .topbar-inner { height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { text-decoration: none; display: inline-flex; align-items: center; gap: 11px; font-weight: 850; letter-spacing: -.04em; font-size: 1.08rem; }
+    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 13px; background: var(--green); color: var(--lime); font-size: .9rem; letter-spacing: -.08em; }
+    .nav-links { display: flex; align-items: center; gap: 27px; color: #48605b; font-size: .91rem; font-weight: 650; }
+    .nav-links a { text-decoration: none; transition: color .18s ease; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 999px; background: var(--lime); color: var(--ink); padding: 12px 18px; text-decoration: none; font-weight: 800; box-shadow: 0 7px 18px rgba(216, 243, 106, .22); transition: transform .2s ease, box-shadow .2s ease; }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(216, 243, 106, .3); }
+    .hero { position: relative; overflow: hidden; background: var(--green); color: white; padding: 72px 0 78px; }
+    .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero::before { width: 410px; height: 410px; right: -120px; top: -205px; border: 1px solid rgba(255,255,255,.15); box-shadow: 0 0 0 45px rgba(255,255,255,.025), 0 0 0 95px rgba(255,255,255,.025); }
+    .hero::after { width: 300px; height: 300px; left: 40%; bottom: -270px; background: rgba(216,243,106,.09); }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr); align-items: center; gap: 55px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: .13em; font-size: .72rem; font-weight: 850; }
+    .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 5px rgba(216,243,106,.14); }
+    .hero h1 { max-width: 690px; margin: 18px 0 16px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 6.2vw, 5.4rem); line-height: .99; letter-spacing: -.055em; font-weight: 500; }
+    .hero h1 em { color: var(--lime); font-weight: 500; }
+    .hero-copy { max-width: 580px; margin: 0; color: #d3e2dc; font-size: 1.05rem; }
+    .search-wrap { position: relative; max-width: 570px; margin-top: 28px; }
+    .search-wrap input { width: 100%; border: 1px solid rgba(255,255,255,.18); outline: 0; border-radius: 15px; background: white; color: var(--ink); padding: 17px 54px 17px 51px; box-shadow: 0 13px 28px rgba(4, 30, 23, .13); }
+    .search-wrap input:focus { box-shadow: 0 0 0 4px rgba(216,243,106,.35), 0 13px 28px rgba(4, 30, 23, .13); }
+    .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #527069; font-size: 1.1rem; }
+    .search-clear { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); border: 0; background: transparent; color: #667a74; cursor: pointer; padding: 7px 10px; border-radius: 9px; font-weight: 750; }
+    .search-clear:hover { background: #edf3ea; }
+    .search-status { min-height: 24px; margin: 8px 0 0 3px; color: #c5d8d0; font-size: .83rem; }
+    .hero-art { position: relative; min-height: 320px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: 270px; height: 270px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; }
+    .orbit::before, .orbit::after { content: ""; position: absolute; border-radius: 50%; }
+    .orbit::before { width: 12px; height: 12px; background: var(--coral); top: 20px; right: 41px; box-shadow: 0 0 0 8px rgba(255,128,100,.16); }
+    .orbit::after { width: 7px; height: 7px; background: var(--lime); bottom: 34px; left: 18px; }
+    .study-card { position: relative; z-index: 1; width: min(300px, 90%); padding: 23px; transform: rotate(-4deg); border: 1px solid #f0f1e5; border-radius: 20px; background: var(--white); color: var(--ink); box-shadow: 0 28px 60px rgba(5, 30, 22, .26); }
+    .study-card::after { content: ""; position: absolute; z-index: -1; inset: 10px -11px -12px 12px; border: 1px solid rgba(255,255,255,.3); border-radius: 20px; background: #c9e5d3; transform: rotate(8deg); }
+    .card-topline { display: flex; align-items: center; justify-content: space-between; color: #71817d; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .card-topline span:last-child { color: #628f4e; font-size: .8rem; letter-spacing: 0; }
+    .study-card h2 { margin: 16px 0 4px; font-family: Georgia, serif; font-size: 1.7rem; font-weight: 500; letter-spacing: -.04em; }
+    .study-card p { margin: 0 0 17px; color: var(--muted); font-size: .83rem; }
+    .progress-track { width: 100%; height: 7px; border-radius: 8px; background: #e9eee6; overflow: hidden; }
+    .progress-track span { display: block; width: 68%; height: 100%; border-radius: inherit; background: #73aa63; }
+    .plan-list { display: grid; gap: 10px; margin-top: 17px; }
+    .plan-row { display: flex; align-items: center; gap: 10px; font-size: .8rem; font-weight: 650; }
+    .plan-check { width: 20px; height: 20px; display: grid; place-items: center; border: 1px solid #d6e1d3; border-radius: 7px; color: #51854b; background: #f1f7ec; font-size: .7rem; }
+    .plan-row:last-child .plan-check { color: #85938b; background: #f8f8f3; }
+    .hero-sticker { position: absolute; top: 18px; right: 4px; display: grid; place-items: center; width: 69px; height: 69px; border-radius: 50%; background: var(--coral); color: #40241f; font-size: .67rem; font-weight: 900; line-height: 1.15; text-align: center; transform: rotate(9deg); }
+    .quick-strip { padding: 25px 0; border-bottom: 1px solid var(--line); background: #fffefa; }
+    .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+    .quick-item { display: flex; align-items: center; gap: 12px; padding: 5px 10px; }
+    .quick-icon { display: grid; place-items: center; flex: 0 0 39px; height: 39px; border-radius: 13px; font-size: 1.05rem; }
+    .quick-item:nth-child(1) .quick-icon { background: var(--green-2); }
+    .quick-item:nth-child(2) .quick-icon { background: #fff0df; }
+    .quick-item:nth-child(3) .quick-icon { background: var(--blue); }
+    .quick-item:nth-child(4) .quick-icon { background: var(--lavender); }
+    .quick-item strong { display: block; font-size: .87rem; line-height: 1.3; }
+    .quick-item small { display: block; color: var(--muted); font-size: .74rem; margin-top: 2px; }
+    main { padding-bottom: 65px; }
+    .section { padding: 76px 0 0; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 27px; }
+    .kicker { margin: 0 0 7px; color: #6b8b55; font-size: .73rem; letter-spacing: .14em; font-weight: 900; text-transform: uppercase; }
+    .section-heading h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -.05em; font-weight: 500; }
+    .section-heading p { max-width: 440px; margin: 0; color: var(--muted); font-size: .93rem; }
+    .subject-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
+    .subject-card { position: relative; overflow: hidden; min-height: 224px; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); box-shadow: 0 4px 15px rgba(31,60,51,.025); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .subject-card:hover { transform: translateY(-4px); border-color: #c6d5c4; box-shadow: var(--shadow); }
+    .subject-top { display: flex; align-items: center; justify-content: space-between; text-decoration: none; }
+    .subject-number { color: #9aa9a0; font-size: .74rem; font-weight: 850; letter-spacing: .1em; }
+    .subject-arrow { display: grid; place-items: center; width: 31px; height: 31px; border: 1px solid var(--line); border-radius: 50%; color: #5e736d; transition: transform .2s ease; }
+    .subject-card:hover .subject-arrow { transform: translate(2px,-2px); }
+    .subject-card h3 { margin: 22px 0 3px; font-size: 1.62rem; line-height: 1.1; letter-spacing: -.04em; }
+    .subject-card p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .subject-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 17px; }
+    .subject-chips a { border: 1px solid #e5e9e0; border-radius: 999px; padding: 5px 9px; color: #50645d; font-size: .68rem; font-weight: 750; text-decoration: none; transition: background .15s ease, border .15s ease; }
+    .subject-chips a:hover { border-color: #bdd2bf; background: #edf5e9; }
+    .subject-card.lac-card { background: #f4f0ff; border-color: #e2daf7; }
+    .subject-card.lac-card .subject-chips a { background: rgba(255,255,255,.62); }
+    .filter-note { margin: 17px 0 0; color: var(--muted); font-size: .82rem; }
+    .subject-detail { margin-top: 56px; scroll-margin-top: 92px; }
+    .subject-title { display: flex; align-items: center; gap: 15px; margin: 0 0 19px; }
+    .subject-badge { display: grid; place-items: center; width: 52px; height: 52px; flex: 0 0 52px; border-radius: 17px; background: var(--green); color: white; font-size: .76rem; font-weight: 900; letter-spacing: .02em; }
+    .subject-title h3 { margin: 0; font-size: 1.35rem; letter-spacing: -.03em; }
+    .subject-title p { margin: 2px 0 0; color: var(--muted); font-size: .83rem; }
+    .subject-menu { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 15px; }
+    .subject-menu a { padding: 8px 13px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,254,250,.8); color: #425a54; text-decoration: none; font-size: .79rem; font-weight: 750; transition: all .16s ease; }
+    .subject-menu a:hover { color: var(--green); border-color: #aec8b0; background: #eaf4e9; }
+    .category-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+    .category-card { min-height: 145px; padding: 17px; border: 1px solid var(--line); border-radius: 17px; background: rgba(255,254,250,.77); scroll-margin-top: 100px; }
+    .category-label { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .category-label h4 { margin: 0; font-size: .94rem; letter-spacing: -.02em; }
+    .category-label span { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 10px; background: #e8f1e5; font-size: .93rem; }
+    .category-card p { margin: 11px 0 14px; color: var(--muted); font-size: .78rem; line-height: 1.5; }
+    .small-link { display: inline-flex; align-items: center; gap: 6px; color: #285b4c; font-size: .76rem; font-weight: 850; text-decoration: none; }
+    .small-link:hover { text-decoration: underline; }
+    .subject-detail + .subject-detail { border-top: 1px solid var(--line); padding-top: 37px; }
+    .lac-panel { display: grid; grid-template-columns: 1.1fr .9fr; gap: 25px; padding: 27px; border: 1px solid #e2daf7; border-radius: var(--radius); background: #f4f0ff; }
+    .lac-panel h4 { margin: 0 0 7px; font-family: Georgia, serif; font-weight: 500; font-size: 1.7rem; letter-spacing: -.04em; }
+    .lac-panel p { max-width: 490px; margin: 0; color: #69647a; font-size: .88rem; }
+    .lac-links { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; align-content: center; }
+    .lac-links a { padding: 12px; border: 1px solid #e0d8f4; border-radius: 13px; background: rgba(255,255,255,.72); color: #514b69; font-size: .8rem; font-weight: 800; text-decoration: none; }
+    .lac-links a:hover { background: white; border-color: #c5b9e9; }
+    .coding-section { margin-top: 72px; padding: 58px 0 62px; background: #eaf1e8; }
+    .coding-section .section-heading { margin-bottom: 25px; }
+    .toolkit-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .toolkit-card { padding: 21px; border: 1px solid #dbe4d8; border-radius: 20px; background: var(--white); scroll-margin-top: 100px; }
+    .toolkit-head { display: flex; align-items: center; gap: 11px; margin-bottom: 13px; }
+    .toolkit-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: var(--green); color: var(--lime); font-size: .82rem; font-weight: 900; }
+    .toolkit-head h3 { margin: 0; font-size: 1.05rem; letter-spacing: -.03em; }
+    .toolkit-card p { color: var(--muted); font-size: .82rem; margin: 0 0 13px; }
+    pre { overflow-x: auto; margin: 0; padding: 14px; border-radius: 13px; background: #18342f; color: #e7f4d5; font: .76rem/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .toolkit-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 13px; color: #73817b; font-size: .72rem; }
+    .pill { border-radius: 999px; background: #eef5e8; color: #4a6c4b; padding: 4px 9px; font-weight: 800; }
+    .extras-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .extra-panel { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); }
+    .extra-panel h3 { margin: 0 0 6px; font-size: 1.15rem; letter-spacing: -.03em; }
+    .extra-panel > p { margin: 0 0 17px; color: var(--muted); font-size: .83rem; }
+    .manual-list { display: grid; gap: 9px; }
+    .manual-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 11px 12px; border: 1px solid #edf0e8; border-radius: 12px; background: #fbfcf8; }
+    .manual-row strong { display: block; font-size: .82rem; }
+    .manual-row small { display: block; color: var(--muted); font-size: .72rem; }
+    .manual-row a { flex: 0 0 auto; color: #477454; font-size: .75rem; font-weight: 850; text-decoration: none; }
+    .question { padding: 13px 0; border-top: 1px solid #edf0e8; }
+    .question:first-of-type { border-top: 0; padding-top: 0; }
+    .question summary { cursor: pointer; font-size: .82rem; font-weight: 750; }
+    .question p { margin: 8px 0 0; color: #50704f; font-size: .78rem; }
+    .edit-guide { margin-top: 68px; padding: 28px; border: 1px dashed #a8bca5; border-radius: 20px; background: #f0f5eb; scroll-margin-top: 100px; }
+    .edit-guide h2 { margin: 0 0 7px; font-family: Georgia, serif; font-size: 1.7rem; font-weight: 500; letter-spacing: -.04em; }
+    .edit-guide p { max-width: 830px; margin: 0; color: var(--muted); font-size: .86rem; }
+    .edit-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 18px; }
+    .edit-step { padding: 14px; border-radius: 13px; background: white; }
+    .edit-step b { display: block; margin-bottom: 4px; font-size: .8rem; }
+    .edit-step span { color: var(--muted); font-size: .75rem; }
+    footer { padding: 30px 0; border-top: 1px solid var(--line); color: #71807a; font-size: .78rem; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .footer-links { display: flex; gap: 17px; }
+    .footer-links a { text-decoration: none; }
+    .footer-links a:hover { color: var(--green); }
+    .hidden-by-search { display: none !important; }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: minmax(0,1fr) minmax(250px,.75fr); gap: 20px; }
+      .subject-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .category-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .quick-grid { grid-template-columns: repeat(2,1fr); }
+      .toolkit-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 650px) {
+      .wrap { width: min(100% - 28px, 520px); }
+      .topbar-inner { height: 64px; }
+      .nav-links { gap: 14px; font-size: .78rem; }
+      .nav-links a:nth-child(2), .nav-links a:nth-child(3) { display: none; }
+      .nav-cta { padding: 9px 12px; font-size: .78rem; }
+      .hero { padding: 55px 0 56px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: clamp(2.85rem, 13vw, 4.2rem); }
+      .hero-copy { font-size: .94rem; }
+      .hero-art { min-height: 275px; margin-top: 7px; }
+      .orbit { width: 238px; height: 238px; }
+      .hero-sticker { right: 7%; top: 2px; }
+      .quick-grid { gap: 9px 2px; }
+      .quick-item { padding: 5px 2px; gap: 8px; }
+      .quick-item small { font-size: .67rem; }
+      .quick-icon { flex-basis: 34px; height: 34px; border-radius: 11px; }
+      .section { padding-top: 58px; }
+      .section-heading { display: block; }
+      .section-heading p { margin-top: 10px; }
+      .subject-grid { gap: 10px; }
+      .subject-card { min-height: 203px; padding: 15px; border-radius: 17px; }
+      .subject-card h3 { font-size: 1.42rem; margin-top: 16px; }
+      .subject-chips { gap: 5px; margin-top: 12px; }
+      .subject-chips a { font-size: .63rem; padding: 5px 7px; }
+      .category-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .category-card { padding: 13px; min-height: 156px; }
+      .category-card p { font-size: .73rem; }
+      .lac-panel { grid-template-columns: 1fr; padding: 21px; }
+      .extras-grid { grid-template-columns: 1fr; }
+      .edit-steps { grid-template-columns: 1fr; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- EDIT: Change the site name in the title and brand below. -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#top" aria-label="StudyDesk home"><span class="brand-mark">SD</span><span>StudyDesk</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#subjects">Subjects</a>
+        <a href="#coding">Coding notes</a>
+        <a href="#extras">More resources</a>
+      </nav>
+      <a class="nav-cta" href="#subjects">Explore library <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Your friendly study space</div>
+        <h1>Good notes.<br><em>Less</em> last-minute stress.</h1>
+        <p class="hero-copy">Find course notes, quick revision sheets, mind maps, lab manuals and practice questions—all in one easy place.</p>
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="library-search" type="search" placeholder="Search subjects, notes, C, HTML, Linux…" aria-label="Search study resources">
+          <button class="search-clear" id="clear-search" type="button" aria-label="Clear search">Clear</button>
+        </div>
+        <p class="search-status" id="search-status" aria-live="polite">Try “SPC”, “Linux” or “practice questions”.</p>
+      </div>
+      <div class="hero-art" aria-label="A sample study plan illustration">
+        <div class="orbit"></div>
+        <div class="hero-sticker">small steps<br>add up!</div>
+        <div class="study-card">
+          <div class="card-topline"><span>My study plan</span><span>● This week</span></div>
+          <h2>One thing at a time.</h2>
+          <p>A little review today makes tomorrow easier.</p>
+          <div class="progress-track" aria-label="Study plan progress"><span></span></div>
+          <div class="plan-list">
+            <div class="plan-row"><span class="plan-check">✓</span> Review lecture notes</div>
+            <div class="plan-row"><span class="plan-check">✓</span> Practise one C program</div>
+            <div class="plan-row"><span class="plan-check">·</span> Try a quick MCQ set</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick-strip" aria-label="Resource types">
+    <div class="wrap quick-grid">
+      <div class="quick-item"><span class="quick-icon" aria-hidden="true">▤</span><span><strong>Clear notes</strong><small>Learn one topic at a time</small></span></div>
+      <div class="quick-item"><span class="quick-icon" aria-hidden="true">✎</span><span><strong>Lab manuals</strong><small>Keep practical work handy</small></span></div>
+      <div class="quick-item"><span class="quick-icon" aria-hidden="true">&lt;/&gt;</span><span><strong>Coding practice</strong><small>Build skills by doing</small></span></div>
+      <div class="quick-item"><span class="quick-icon" aria-hidden="true">☑</span><span><strong>MCQs & revision</strong><small>Check what you remember</small></span></div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" id="subjects">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="kicker">Start with a subject</p><h2>Your course library</h2></div>
+          <p>Choose a subject to jump straight to its learning materials. The subject names and resource labels are easy to edit in this file.</p>
+        </div>
+        <div class="subject-grid" id="subject-grid">
+          <article class="subject-card searchable" data-search="SPC subject notes short notes mind map practice questions">
+            <a class="subject-top" href="#spc" aria-label="Open SPC resources"><span class="subject-number">SUBJECT 01</span><span class="subject-arrow" aria-hidden="true">↗</span></a>
+            <h3>SPC</h3><p>Course notes & practice</p>
+            <nav class="subject-chips" aria-label="SPC resource links"><a href="#spc-notes">Notes</a><a href="#spc-short-notes">Short Notes</a><a href="#spc-mind-map">Mind map</a><a href="#spc-practice">Practice questions</a></nav>
+          </article>
+          <article class="subject-card searchable" data-search="FCS subject notes short notes mind map practice questions">
+            <a class="subject-top" href="#fcs" aria-label="Open FCS resources"><span class="subject-number">SUBJECT 02</span><span class="subject-arrow" aria-hidden="true">↗</span></a>
+            <h3>FCS</h3><p>Core concepts & revision</p>
+            <nav class="subject-chips" aria-label="FCS resource links"><a href="#fcs-notes">Notes</a><a href="#fcs-short-notes">Short Notes</a><a href="#fcs-mind-map">Mind map</a><a href="#fcs-practice">Practice questions</a></nav>
+          </article>
+          <article class="subject-card searchable" data-search="IWT subject notes short notes mind map practice questions">
+            <a class="subject-top" href="#iwt" aria-label="Open IWT resources"><span class="subject-number">SUBJECT 03</span><span class="subject-arrow" aria-hidden="true">↗</span></a>
+            <h3>IWT</h3><p>Web topics & practice</p>
+            <nav class="subject-chips" aria-label="IWT resource links"><a href="#iwt-notes">Notes</a><a href="#iwt-short-notes">Short Notes</a><a href="#iwt-mind-map">Mind map</a><a href="#iwt-practice">Practice questions</a></nav>
+          </article>
+          <article class="subject-card lac-card searchable" data-search="LAC subject notes lab manuals MCQ resources">
+            <a class="subject-top" href="#lac" aria-label="Open LAC resources"><span class="subject-number">SUBJECT 04</span><span class="subject-arrow" aria-hidden="true">↗</span></a>
+            <h3>LAC</h3><p>Learning materials & more</p>
+            <nav class="subject-chips" aria-label="LAC resource links"><a href="#lac">Open LAC</a><a href="#extras">Lab manuals</a><a href="#mcqs">MCQs</a></nav>
+          </article>
+        </div>
+        <p class="filter-note" id="filter-note">12 quick links across your subjects. Add your own files and links using the guide below.</p>
+
+        <!-- EDIT: Copy a subject block to add another course. Change its id and the links that point to it. -->
+        <section class="subject-detail" id="spc">
+          <div class="subject-title"><span class="subject-badge">SPC</span><div><h3>SPC resources</h3><p>Pick a format to find what you need.</p></div></div>
+          <nav class="subject-menu" aria-label="SPC resource categories"><a href="#spc-notes">1. Notes</a><a href="#spc-short-notes">2. Short Notes</a><a href="#spc-mind-map">3. Mind map</a><a href="#spc-practice">4. Practice questions</a></nav>
+          <div class="category-grid">
+            <article class="category-card" id="spc-notes"><div class="category-label"><h4>Notes</h4><span>▤</span></div><p>Add full chapter notes, class handouts or a Google Drive document link.</p><a class="small-link" href="#edit-guide">Add notes <span>↗</span></a></article>
+            <article class="category-card" id="spc-short-notes"><div class="category-label"><h4>Short Notes</h4><span>✎</span></div><p>Keep concise revision pages and key definitions together.</p><a class="small-link" href="#edit-guide">Add short notes <span>↗</span></a></article>
+            <article class="category-card" id="spc-mind-map"><div class="category-label"><h4>Mind map</h4><span>✳</span></div><p>Link a diagram, summary image or concept map for quick recall.</p><a class="small-link" href="#edit-guide">Add a mind map <span>↗</span></a></article>
+            <article class="category-card" id="spc-practice"><div class="category-label"><h4>Practice questions</h4><span>☑</span></div><p>Add question sheets, solved examples or a self-test.</p><a class="small-link" href="#edit-guide">Add questions <span>↗</span></a></article>
+          </div>
+        </section>
+
+        <section class="subject-detail" id="fcs">
+          <div class="subject-title"><span class="subject-badge">FCS</span><div><h3>FCS resources</h3><p>Keep important concepts and exam prep in one place.</p></div></div>
+          <nav class="subject-menu" aria-label="FCS resource categories"><a href="#fcs-notes">1. Notes</a><a href="#fcs-short-notes">2. Short Notes</a><a href="#fcs-mind-map">3. Mind map</a><a href="#fcs-practice">4. Practice questions</a></nav>
+          <div class="category-grid">
+            <article class="category-card" id="fcs-notes"><div class="category-label"><h4>Notes</h4><span>▤</span></div><p>Add full chapter notes, class handouts or a Google Drive document link.</p><a class="small-link" href="#edit-guide">Add notes <span>↗</span></a></article>
+            <article class="category-card" id="fcs-short-notes"><div class="category-label"><h4>Short Notes</h4><span>✎</span></div><p>Keep concise revision pages and key definitions together.</p><a class="small-link" href="#edit-guide">Add short notes <span>↗</span></a></article>
+            <article class="category-card" id="fcs-mind-map"><div class="category-label"><h4>Mind map</h4><span>✳</span></div><p>Link a diagram, summary image or concept map for quick recall.</p><a class="small-link" href="#edit-guide">Add a mind map <span>↗</span></a></article>
+            <article class="category-card" id="fcs-practice"><div class="category-label"><h4>Practice questions</h4><span>☑</span></div><p>Add question sheets, solved examples or a self-test.</p><a class="small-link" href="#edit-guide">Add questions <span>↗</span></a></article>
+          </div>
+        </section>
+
+        <section class="subject-detail" id="iwt">
+          <div class="subject-title"><span class="subject-badge">IWT</span><div><h3>IWT resources</h3><p>Notes and practice materials for your web topics.</p></div></div>
+          <nav class="subject-menu" aria-label="IWT resource categories"><a href="#iwt-notes">1. Notes</a><a href="#iwt-short-notes">2. Short Notes</a><a href="#iwt-mind-map">3. Mind map</a><a href="#iwt-practice">4. Practice questions</a></nav>
+          <div class="category-grid">
+            <article class="category-card" id="iwt-notes"><div class="category-label"><h4>Notes</h4><span>▤</span></div><p>Add full chapter notes, class handouts or a Google Drive document link.</p><a class="small-link" href="#edit-guide">Add notes <span>↗</span></a></article>
+            <article class="category-card" id="iwt-short-notes"><div class="category-label"><h4>Short Notes</h4><span>✎</span></div><p>Keep concise revision pages and key definitions together.</p><a class="small-link" href="#edit-guide">Add short notes <span>↗</span></a></article>
+            <article class="category-card" id="iwt-mind-map"><div class="category-label"><h4>Mind map</h4><span>✳</span></div><p>Link a diagram, summary image or concept map for quick recall.</p><a class="small-link" href="#edit-guide">Add a mind map <span>↗</span></a></article>
+            <article class="category-card" id="iwt-practice"><div class="category-label"><h4>Practice questions</h4><span>☑</span></div><p>Add question sheets, solved examples or a self-test.</p><a class="small-link" href="#edit-guide">Add questions <span>↗</span></a></article>
+          </div>
+        </section>
+
+        <section class="subject-detail" id="lac">
+          <div class="subject-title"><span class="subject-badge" style="background:#65558f">LAC</span><div><h3>LAC resources</h3><p>One more spot for your subject materials.</p></div></div>
+          <div class="lac-panel">
+            <div><h4>Keep your LAC materials close.</h4><p>Add the notes, handouts, lab work or revision links you want students to find. Use the quick links to jump to practical manuals and MCQs.</p></div>
+            <nav class="lac-links" aria-label="LAC quick links"><a href="#edit-guide">Add LAC notes ↗</a><a href="#extras">Lab manuals ↗</a><a href="#mcqs">MCQs ↗</a><a href="#coding">Coding notes ↗</a></nav>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="coding-section" id="coding">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="kicker">The coding corner</p><h2>Learn by trying it yourself.</h2></div>
+          <p>Starter notes for C, HTML and Linux. Add your class notes or expand these examples whenever you like.</p>
+        </div>
+        <div class="toolkit-grid">
+          <article class="toolkit-card searchable" id="c-language" data-search="C language coding notes program variables input output practice loops functions">
+            <div class="toolkit-head"><span class="toolkit-icon">C</span><h3>C language notes</h3></div>
+            <p>A C program starts in <code>main()</code>. Use <code>printf</code> to display text and <code>scanf</code> to read input.</p>
+            <pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    printf("Hello, world!\\n");
+    return 0;
+}</code></pre>
+            <div class="toolkit-foot"><span>Try: variables, conditions, loops</span><span class="pill">Starter note</span></div>
+          </article>
+          <article class="toolkit-card searchable" id="html-notes" data-search="HTML coding notes tags elements headings links images forms structure">
+            <div class="toolkit-head"><span class="toolkit-icon">&lt;/&gt;</span><h3>HTML coding notes</h3></div>
+            <p>HTML gives a page its structure. Elements use tags; most have an opening tag and a closing tag.</p>
+            <pre><code>&lt;h1&gt;My page&lt;/h1&gt;
+&lt;p&gt;A paragraph goes here.&lt;/p&gt;
+&lt;a href="notes.html"&gt;Open notes&lt;/a&gt;</code></pre>
+            <div class="toolkit-foot"><span>Try: headings, links, lists, forms</span><span class="pill">Starter note</span></div>
+          </article>
+          <article class="toolkit-card searchable" id="linux-notes" data-search="Linux notes commands terminal pwd ls cd mkdir cp mv grep files folders">
+            <div class="toolkit-head"><span class="toolkit-icon">$_</span><h3>Linux notes</h3></div>
+            <p>Use a terminal command to work with files and folders. Start by checking where you are.</p>
+            <pre><code>pwd        # show current folder
+ls         # list files
+cd notes   # open a folder
+mkdir lab  # make a folder</code></pre>
+            <div class="toolkit-foot"><span>Next: cp, mv, cat, grep</span><span class="pill">Starter note</span></div>
+          </article>
+        </div>
+        <article class="extra-panel searchable" id="c-practice" data-search="C language practice questions coding exercises sum even odd loop factorial array beginner">
+          <h3 style="margin-bottom:6px">C language practice questions</h3>
+          <p>Try each problem in your own editor before opening the hint.</p>
+          <div class="extras-grid" style="grid-template-columns:1fr 1fr; gap:0 18px">
+            <details class="question"><summary>1. Read two numbers and print their sum.</summary><p>Hint: declare two integers, read them with <code>scanf</code>, then print <code>a + b</code>.</p></details>
+            <details class="question"><summary>2. Check whether a number is even or odd.</summary><p>Hint: use the remainder operator. A number is even when <code>number % 2 == 0</code>.</p></details>
+            <details class="question"><summary>3. Print the numbers from 1 to n.</summary><p>Hint: read <code>n</code>, then use a <code>for</code> loop that counts from 1 through <code>n</code>.</p></details>
+            <details class="question"><summary>4. Find the factorial of a positive integer.</summary><p>Hint: start a result variable at 1 and multiply it by each number from 1 to the input.</p></details>
+            <details class="question"><summary>5. Find the largest value in an integer array.</summary><p>Hint: begin with the first element as the largest, then compare each remaining element.</p></details>
+            <details class="question"><summary>6. Make a function that converts Celsius to Fahrenheit.</summary><p>Hint: use <code>F = C × 9 / 5 + 32</code>. Choose <code>float</code> if you want decimal values.</p></details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="extras">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="kicker">A few more things</p><h2>Keep the extras together.</h2></div>
+          <p>Lab manuals and MCQs belong beside your notes. Replace these starter examples with your own materials.</p>
+        </div>
+        <div class="extras-grid">
+          <article class="extra-panel searchable" data-search="lab manual practical manuals experiments record book">
+            <h3>Lab manuals</h3><p>Practical instructions, experiment sheets and record-book references.</p>
+            <div class="manual-list">
+              <div class="manual-row"><span><strong>C programming lab</strong><small>Practical sheet or lab PDF</small></span><a href="#edit-guide">Add link ↗</a></div>
+              <div class="manual-row"><span><strong>HTML / Web lab</strong><small>Exercises and submission format</small></span><a href="#edit-guide">Add link ↗</a></div>
+              <div class="manual-row"><span><strong>Linux practicals</strong><small>Commands and lab tasks</small></span><a href="#edit-guide">Add link ↗</a></div>
+            </div>
+          </article>
+          <article class="extra-panel searchable" id="mcqs" data-search="MCQs multiple choice quiz computer science C language HTML Linux">
+            <h3>Quick MCQs</h3><p>Open each question to check the answer after you try it.</p>
+            <details class="question"><summary>Which function is the usual starting point of a C program?</summary><p><strong>Answer: <code>main()</code>.</strong> Execution of a standard C program begins there.</p></details>
+            <details class="question"><summary>Which HTML element creates a hyperlink?</summary><p><strong>Answer: <code>&lt;a&gt;</code>.</strong> Its <code>href</code> attribute holds the destination.</p></details>
+            <details class="question"><summary>Which Linux command shows the current directory?</summary><p><strong>Answer: <code>pwd</code>.</strong> It prints the working directory path.</p></details>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDIT: Follow these steps to add your own class files and links. -->
+    <section class="wrap edit-guide" id="edit-guide">
+      <p class="kicker">Make it yours</p>
+      <h2>How to add your notes and files</h2>
+      <p>This is a single, self-contained HTML file. Open <strong>index.html</strong> in any text editor to change the wording, colors, subjects or links. The notes and study cards above are starter examples/placeholders; add your own course files before sharing the site with students.</p>
+      <div class="edit-steps">
+        <div class="edit-step"><b>1. Add your file</b><span>Keep a PDF beside this file, or copy its Google Drive share link.</span></div>
+        <div class="edit-step"><b>2. Change the link</b><span>Find “Add notes” in the HTML and replace <code>#edit-guide</code> with your PDF path or link.</span></div>
+        <div class="edit-step"><b>3. Add more cards</b><span>Copy one resource card, then edit its title, description and destination.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner"><span>© <span id="year"></span> StudyDesk · Made for curious learners.</span><nav class="footer-links" aria-label="Footer navigation"><a href="#top">Back to top ↑</a><a href="#subjects">Subjects</a></nav></div>
+  </footer>
+
+  <script>
+    // The search filters subject and resource cards by the words in data-search.
+    const searchInput = document.getElementById('library-search');
+    const clearSearch = document.getElementById('clear-search');
+    const searchStatus = document.getElementById('search-status');
+    const filterNote = document.getElementById('filter-note');
+    const searchableItems = [...document.querySelectorAll('.searchable')];
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function runSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      let matches = 0;
+      searchableItems.forEach((item) => {
+        const haystack = `${item.dataset.search || ''} ${item.textContent}`.toLowerCase();
+        const show = !query || haystack.includes(query);
+        item.classList.toggle('hidden-by-search', !show);
+        if (show) matches += 1;
+      });
+      searchStatus.textContent = query
+        ? `${matches} ${matches === 1 ? 'resource matches' : 'resources match'} “${searchInput.value.trim()}”.`
+        : 'Try “SPC”, “Linux” or “practice questions”.';
+      filterNote.textContent = query
+        ? 'Search checks subject names and resource descriptions. Clear the search to see the full library.'
+        : '12 quick links across your subjects. Add your own files and links using the guide below.';
+    }
+    searchInput.addEventListener('input', runSearch);
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      runSearch();
+      searchInput.focus();
+    });
+  </script>
+</body>
+</html>
