@@ -539,6 +539,90 @@ mkdir lab  # make a folder</code></pre>
       searchInput.focus();
     });
   </script>
+  <script>
+    const cardToggleStyles = document.createElement('style');
+    cardToggleStyles.textContent = `
+      #spc .category-label,
+      #fcs .category-label,
+      #iwt .category-label {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+      }
+      #spc .category-label > span,
+      #fcs .category-label > span,
+      #iwt .category-label > span {
+        margin-left: auto;
+      }
+      .resource-toggle {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 10px;
+        background: var(--white);
+        color: var(--green);
+        font-size: .72rem;
+        font-weight: 800;
+        line-height: 1.35;
+        cursor: pointer;
+      }
+      .resource-toggle:hover { background: var(--green-2); }
+      .resource-toggle:focus-visible {
+        outline: 3px solid #8ebf67;
+        outline-offset: 2px;
+      }
+      .category-card.is-collapsed { min-height: 0; }
+      .category-card.is-collapsed > :not(.category-label) { display: none; }
+      #lac .lac-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #lac .lac-panel-header h4 { margin: 0; }
+      #lac .lac-panel.is-collapsed > div > p,
+      #lac .lac-panel.is-collapsed > .lac-links { display: none; }
+    `;
+    document.head.append(cardToggleStyles);
+
+    function createResourceToggle(card, title) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'resource-toggle';
+      button.textContent = 'Collapse';
+      button.setAttribute('aria-expanded', 'true');
+      button.setAttribute('aria-label', 'Collapse ' + title + ' card');
+      button.addEventListener('click', () => {
+        const collapsed = card.classList.toggle('is-collapsed');
+        button.setAttribute('aria-expanded', String(!collapsed));
+        button.textContent = collapsed ? 'Expand' : 'Collapse';
+        button.setAttribute('aria-label', (collapsed ? 'Expand ' : 'Collapse ') + title + ' card');
+      });
+      return button;
+    }
+
+    ['spc', 'fcs', 'iwt'].forEach((subjectId) => {
+      const subject = document.getElementById(subjectId);
+      if (!subject) return;
+      subject.querySelectorAll('.category-grid > .category-card').forEach((card) => {
+        const label = card.querySelector('.category-label');
+        const title = label && label.querySelector('h4')?.textContent.trim();
+        if (label && title) label.append(createResourceToggle(card, title));
+      });
+    });
+
+    const lacPanel = document.querySelector('#lac .lac-panel');
+    if (lacPanel) {
+      const title = lacPanel.querySelector('h4');
+      const label = title && title.parentElement;
+      if (title && label) {
+        const header = document.createElement('div');
+        header.className = 'lac-panel-header';
+        title.before(header);
+        header.append(title, createResourceToggle(lacPanel, 'LAC materials'));
+      }
+    }
+  </script>
 </body>
 </html>
 
