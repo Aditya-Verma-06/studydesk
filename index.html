@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A student-friendly home for course notes, short revision sheets, lab manuals, and coding guides.">
+  <meta name="description" content="A student-friendly home for course notes, revision sheets, and course questions.">
   <title>StudyDesk — Notes for every class</title>
   <style>
     :root {
@@ -211,9 +211,7 @@
       <a class="brand" href="#top" aria-label="StudyDesk home"><span class="brand-mark">SD</span><span>StudyDesk</span></a>
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#subjects">Subjects</a>
-        <a href="#coding">Coding notes</a>
-        <a href="#extras">More resources</a>
-      </nav>
+              </nav>
       <a class="nav-cta" href="#subjects">Explore library <span aria-hidden="true">↗</span></a>
     </div>
   </header>
@@ -223,7 +221,7 @@
       <div>
         <div class="eyebrow"><span class="dot"></span> Your friendly study space</div>
         <h1>Good notes.<br><em>Less</em> last-minute stress.</h1>
-        <p class="hero-copy">Find course notes, quick revision sheets, lab manuals and coding guides—all in one easy place.</p>
+        <p class="hero-copy">Find course notes, quick revision sheets and questions—all in one easy place.</p>
         <div class="search-wrap">
           <span class="search-icon" aria-hidden="true">⌕</span>
           <input id="library-search" type="search" placeholder="Search subjects, notes, C, HTML, Linux…" aria-label="Search study resources">
@@ -241,8 +239,8 @@
           <div class="progress-track" aria-label="Study plan progress"><span></span></div>
           <div class="plan-list">
             <div class="plan-row"><span class="plan-check">✓</span> Review lecture notes</div>
-            <div class="plan-row"><span class="plan-check">✓</span> Practise one C program</div>
-            <div class="plan-row"><span class="plan-check">·</span> Try a quick MCQ set</div>
+            <div class="plan-row"><span class="plan-check">✓</span> Review a lecture topic</div>
+            <div class="plan-row"><span class="plan-check">·</span> Answer an LAC question</div>
           </div>
         </div>
       </div>
@@ -252,9 +250,9 @@
   <section class="quick-strip" aria-label="Resource types">
     <div class="wrap quick-grid">
       <div class="quick-item"><span class="quick-icon" aria-hidden="true">▤</span><span><strong>Clear notes</strong><small>Learn one topic at a time</small></span></div>
-      <div class="quick-item"><span class="quick-icon" aria-hidden="true">✎</span><span><strong>Lab manuals</strong><small>Keep practical work handy</small></span></div>
-      <div class="quick-item"><span class="quick-icon" aria-hidden="true">&lt;/&gt;</span><span><strong>Coding practice</strong><small>Build skills by doing</small></span></div>
-      <div class="quick-item"><span class="quick-icon" aria-hidden="true">☑</span><span><strong>MCQs & revision</strong><small>Check what you remember</small></span></div>
+      <div class="quick-item"><span class="quick-icon" aria-hidden="true">✎</span><span><strong>Revision sheets</strong><small>Review key points quickly</small></span></div>
+      <div class="quick-item"><span class="quick-icon" aria-hidden="true">&lt;/&gt;</span><span><strong>Course resources</strong><small>Browse by subject</small></span></div>
+      <div class="quick-item"><span class="quick-icon" aria-hidden="true">☑</span><span><strong>Questions</strong><small>Check what you remember</small></span></div>
     </div>
   </section>
 
@@ -281,13 +279,13 @@
             <h3>IWT</h3><p>Web topics & notes</p>
             <nav class="subject-chips" aria-label="IWT resource links"><a href="#iwt-notes">Notes</a><a href="#iwt-short-notes">Short Notes</a></nav>
           </article>
-          <article class="subject-card lac-card searchable" data-search="LAC subject notes short notes lab manuals coding MCQ resources">
+          <article class="subject-card lac-card searchable" data-search="LAC subject questions MCQ revision">
             <a class="subject-top" href="#lac" aria-label="Open LAC resources"><span class="subject-number">SUBJECT 04</span><span class="subject-arrow" aria-hidden="true">↗</span></a>
-            <h3>LAC</h3><p>Learning materials & more</p>
-            <nav class="subject-chips" aria-label="LAC resource links"><a href="#lac-notes">Notes</a><a href="#lac-short-notes">Short Notes</a></nav>
+            <h3>LAC</h3><p>Questions & revision</p>
+            <nav class="subject-chips" aria-label="LAC resource links"><a href="#lac-questions">Questions</a></nav>
           </article>
         </div>
-        <p class="filter-note" id="filter-note">8 quick links across your subjects. Open a subject card to browse its resources.</p>
+        <p class="filter-note" id="filter-note">7 quick links across your subjects. Open a subject card to browse its resources.</p>
 
         <!-- EDIT: Copy a subject block to add another course. Change its id and the links that point to it. -->
         <section class="subject-detail" id="spc">
@@ -389,100 +387,24 @@
 </div>
         </section>
 
-                <section class="subject-detail" id="lac">
-          <div class="subject-title"><span class="subject-badge" style="background:#65558f">LAC</span><div><h3>LAC resources</h3><p>Notes and revision materials for LAC.</p></div></div>
-          <nav class="subject-menu" aria-label="LAC resource categories"><a href="#lac-notes">1. Notes</a><a href="#lac-short-notes">2. Short Notes</a></nav>
+        <section class="subject-detail" id="lac">
+          <div class="subject-title"><span class="subject-badge" style="background:#65558f">LAC</span><div><h3>LAC resources</h3><p>Questions for LAC revision and practice.</p></div></div>
+          <nav class="subject-menu" aria-label="LAC resource categories"><a href="#lac-questions">1. Questions</a></nav>
           <div class="category-grid">
-            <article class="category-card" id="lac-notes" style="grid-column: 1 / -1;">
-              <div class="category-label"><h4>Notes</h4><span>▤</span></div>
-              <p>Open LAC lab manuals, MCQs, and coding notes from these quick links.</p>
-              <div class="manual-list" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                <a class="manual-row" href="#extras" style="color: inherit; text-decoration: none;"><span><strong>Lab manuals</strong><small>Practical instructions and reference sheets</small></span><span style="flex: 0 0 auto; color: #477454; font-size: .75rem; font-weight: 850;">Open ↗</span></a>
-                <a class="manual-row" href="#mcqs" style="color: inherit; text-decoration: none;"><span><strong>MCQs</strong><small>Quick questions for revision</small></span><span style="flex: 0 0 auto; color: #477454; font-size: .75rem; font-weight: 850;">Open ↗</span></a>
-                <a class="manual-row" href="#coding" style="color: inherit; text-decoration: none;"><span><strong>Coding notes</strong><small>C, HTML, and Linux resources</small></span><span style="flex: 0 0 auto; color: #477454; font-size: .75rem; font-weight: 850;">Open ↗</span></a>
+            <article class="category-card" id="lac-questions" style="grid-column: 1 / -1;">
+              <div class="category-label"><h4>Questions</h4><span>?</span></div>
+              <p>Try each quick question first, then expand it to check the answer.</p>
+              <div class="manual-list">
+                <details class="question"><summary>Which function is the usual starting point of a C program?</summary><p><strong>Answer: <code>main()</code>.</strong> Execution of a standard C program begins there.</p></details>
+                <details class="question"><summary>Which HTML element creates a hyperlink?</summary><p><strong>Answer: <code>&lt;a&gt;</code>.</strong> Its <code>href</code> attribute holds the destination.</p></details>
+                <details class="question"><summary>Which Linux command shows the current directory?</summary><p><strong>Answer: <code>pwd</code>.</strong> It prints the working directory path.</p></details>
               </div>
             </article>
-            <article class="category-card" id="lac-short-notes"><div class="category-label"><h4>Short Notes</h4><span>✎</span></div><p>Keep concise revision points and key definitions together with your LAC notes.</p><a class="small-link" href="https://github.com/Soul-Hunter-6/studydesk/tree/main/study-files/LAC" target="_blank" rel="noopener noreferrer">Open LAC study files <span>↗</span></a></article>
           </div>
         </section>
       </div>
     </section>
 
-    <section class="coding-section" id="coding">
-      <div class="wrap">
-        <div class="section-heading">
-          <div><p class="kicker">The coding corner</p><h2>Learn by trying it yourself.</h2></div>
-          <p>Starter notes for C, HTML and Linux. Add your class notes or expand these examples whenever you like.</p>
-        </div>
-        <div class="toolkit-grid">
-          <article class="toolkit-card searchable" id="c-language" data-search="C language coding notes program variables input output practice loops functions">
-            <div class="toolkit-head"><span class="toolkit-icon">C</span><h3>C language notes</h3></div>
-            <p>A C program starts in <code>main()</code>. Use <code>printf</code> to display text and <code>scanf</code> to read input.</p>
-            <pre><code>#include &lt;stdio.h&gt;
-
-int main(void) {
-    printf("Hello, world!\\n");
-    return 0;
-}</code></pre>
-            <div class="toolkit-foot"><span>Try: variables, conditions, loops</span><span class="pill">Starter note</span></div>
-          </article>
-          <article class="toolkit-card searchable" id="html-notes" data-search="HTML coding notes tags elements headings links images forms structure">
-            <div class="toolkit-head"><span class="toolkit-icon">&lt;/&gt;</span><h3>HTML coding notes</h3></div>
-            <p>HTML gives a page its structure. Elements use tags; most have an opening tag and a closing tag.</p>
-            <pre><code>&lt;h1&gt;My page&lt;/h1&gt;
-&lt;p&gt;A paragraph goes here.&lt;/p&gt;
-&lt;a href="notes.html"&gt;Open notes&lt;/a&gt;</code></pre>
-            <div class="toolkit-foot"><span>Try: headings, links, lists, forms</span><span class="pill">Starter note</span></div>
-          </article>
-          <article class="toolkit-card searchable" id="linux-notes" data-search="Linux notes commands terminal pwd ls cd mkdir cp mv grep files folders">
-            <div class="toolkit-head"><span class="toolkit-icon">$_</span><h3>Linux notes</h3></div>
-            <p>Use a terminal command to work with files and folders. Start by checking where you are.</p>
-            <pre><code>pwd        # show current folder
-ls         # list files
-cd notes   # open a folder
-mkdir lab  # make a folder</code></pre>
-            <div class="toolkit-foot"><span>Next: cp, mv, cat, grep</span><span class="pill">Starter note</span></div>
-          </article>
-        </div>
-        <article class="extra-panel searchable" id="c-practice" data-search="C language practice questions coding exercises sum even odd loop factorial array beginner">
-          <h3 style="margin-bottom:6px">C language practice questions</h3>
-          <p>Try each problem in your own editor before opening the hint.</p>
-          <div class="extras-grid" style="grid-template-columns:1fr 1fr; gap:0 18px">
-            <details class="question"><summary>1. Read two numbers and print their sum.</summary><p>Hint: declare two integers, read them with <code>scanf</code>, then print <code>a + b</code>.</p></details>
-            <details class="question"><summary>2. Check whether a number is even or odd.</summary><p>Hint: use the remainder operator. A number is even when <code>number % 2 == 0</code>.</p></details>
-            <details class="question"><summary>3. Print the numbers from 1 to n.</summary><p>Hint: read <code>n</code>, then use a <code>for</code> loop that counts from 1 through <code>n</code>.</p></details>
-            <details class="question"><summary>4. Find the factorial of a positive integer.</summary><p>Hint: start a result variable at 1 and multiply it by each number from 1 to the input.</p></details>
-            <details class="question"><summary>5. Find the largest value in an integer array.</summary><p>Hint: begin with the first element as the largest, then compare each remaining element.</p></details>
-            <details class="question"><summary>6. Make a function that converts Celsius to Fahrenheit.</summary><p>Hint: use <code>F = C × 9 / 5 + 32</code>. Choose <code>float</code> if you want decimal values.</p></details>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="extras">
-      <div class="wrap">
-        <div class="section-heading">
-          <div><p class="kicker">A few more things</p><h2>Keep the extras together.</h2></div>
-          <p>Lab manuals and MCQs belong beside your notes. Replace these starter examples with your own materials.</p>
-        </div>
-        <div class="extras-grid">
-          <article class="extra-panel searchable" data-search="lab manual practical manuals experiments record book">
-            <h3>Lab manuals</h3><p>Practical instructions, experiment sheets and record-book references.</p>
-            <div class="manual-list">
-              <div class="manual-row"><span><strong>C programming lab</strong><small>Practical sheet or lab PDF</small></span><a href="#lac-notes">LAC resources ↗</a></div>
-              <div class="manual-row"><span><strong>HTML / Web lab</strong><small>Exercises and submission format</small></span><a href="#lac-notes">LAC resources ↗</a></div>
-              <div class="manual-row"><span><strong>Linux practicals</strong><small>Commands and lab tasks</small></span><a href="#lac-notes">LAC resources ↗</a></div>
-            </div>
-          </article>
-          <article class="extra-panel searchable" id="mcqs" data-search="MCQs multiple choice quiz computer science C language HTML Linux">
-            <h3>Quick MCQs</h3><p>Open each question to check the answer after you try it.</p>
-            <details class="question"><summary>Which function is the usual starting point of a C program?</summary><p><strong>Answer: <code>main()</code>.</strong> Execution of a standard C program begins there.</p></details>
-            <details class="question"><summary>Which HTML element creates a hyperlink?</summary><p><strong>Answer: <code>&lt;a&gt;</code>.</strong> Its <code>href</code> attribute holds the destination.</p></details>
-            <details class="question"><summary>Which Linux command shows the current directory?</summary><p><strong>Answer: <code>pwd</code>.</strong> It prints the working directory path.</p></details>
-          </article>
-        </div>
-      </div>
-    </section>
 </main>
 
   <footer>
@@ -512,7 +434,7 @@ mkdir lab  # make a folder</code></pre>
         : 'Try “SPC”, “Linux” or “LAC”.';
       filterNote.textContent = query
         ? 'Search checks subject names and resource descriptions. Clear the search to see the full library.'
-        : '8 quick links across your subjects. Open a subject card to browse its resources.';
+        : '7 quick links across your subjects. Open a subject card to browse its resources.';
     }
     searchInput.addEventListener('input', runSearch);
     clearSearch.addEventListener('click', () => {
