@@ -269,10 +269,10 @@
             <h3>SPC</h3><p>Course notes & revision</p>
             <nav class="subject-chips" aria-label="SPC resource links"><a href="#spc-notes">Notes</a><a href="#spc-short-notes">Short Notes</a></nav>
           </article>
-          <article class="subject-card searchable" data-search="FCS subject notes short notes">
+          <article class="subject-card searchable" data-search="FCS subject notes short notes lab manual lab manuals">
             <a class="subject-top" href="#fcs" aria-label="Open FCS resources"><span class="subject-number">SUBJECT 02</span><span class="subject-arrow" aria-hidden="true">↗</span></a>
             <h3>FCS</h3><p>Core concepts & revision</p>
-            <nav class="subject-chips" aria-label="FCS resource links"><a href="#fcs-notes">Notes</a><a href="#fcs-short-notes">Short Notes</a></nav>
+            <nav class="subject-chips" aria-label="FCS resource links"><a href="#fcs-notes">Notes</a><a href="#fcs-short-notes">Short Notes</a><a href="#fcs-lab-manual">Lab Manual</a></nav>
           </article>
           <article class="subject-card searchable" data-search="IWT subject notes short notes">
             <a class="subject-top" href="#iwt" aria-label="Open IWT resources"><span class="subject-number">SUBJECT 03</span><span class="subject-arrow" aria-hidden="true">↗</span></a>
@@ -346,7 +346,7 @@
 
         <section class="subject-detail" id="fcs">
           <div class="subject-title"><span class="subject-badge">FCS</span><div><h3>FCS resources</h3><p>Keep important concepts and exam prep in one place.</p></div></div>
-          <nav class="subject-menu" aria-label="FCS resource categories"><a href="#fcs-notes">1. Notes</a><a href="#fcs-short-notes">2. Short Notes</a></nav>
+          <nav class="subject-menu" aria-label="FCS resource categories"><a href="#fcs-notes">1. Notes</a><a href="#fcs-short-notes">2. Short Notes</a><a href="#fcs-lab-manual">3. Lab Manual</a></nav>
           <div class="category-grid">
             <article class="category-card" id="fcs-notes" style="grid-column: 1 / -1;">
               <div class="category-label"><h4>Notes</h4><span>▤</span></div>
@@ -371,6 +371,7 @@
               </div>
             </article>
             <article class="category-card" id="fcs-short-notes"><div class="category-label"><h4>Short Notes</h4><span>✎</span></div><p>Keep concise revision pages and key definitions together.</p><a class="small-link" href="https://github.com/Soul-Hunter-6/studydesk/tree/main/study-files/FCS/short%20notes" target="_blank" rel="noopener noreferrer">Open folder <span>↗</span></a></article>
+            <article class="category-card" id="fcs-lab-manual"><div class="category-label"><h4>Lab Manual</h4><span>✎</span></div><p>Browse FCS practical instructions and experiment sheets.</p><a class="small-link" href="https://github.com/Soul-Hunter-6/studydesk/tree/main/study-files/FCS/lab%20manuals" target="_blank" rel="noopener noreferrer">Open folder <span>↗</span></a></article>
             
 
 </div>
@@ -474,7 +475,7 @@
         : 'Try “SPC”, “Linux” or “LAC”.';
       filterNote.textContent = query
         ? 'Search checks subject names and resource descriptions. Clear the search to see the full library.'
-        : '7 quick links across your subjects. Open a subject card to browse its resources.';
+        : '8 quick links across your subjects. Open a subject card to browse its resources.';
     }
     searchInput.addEventListener('input', runSearch);
     clearSearch.addEventListener('click', () => {
