@@ -98,6 +98,7 @@
     .section-heading h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -.05em; font-weight: 500; }
     .section-heading p { max-width: 440px; margin: 0; color: var(--muted); font-size: .93rem; }
     .subject-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
+    @media (min-width: 901px) {.subject-card:nth-child(5){grid-column: 2;}}
     .subject-card { position: relative; overflow: hidden; min-height: 224px; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); box-shadow: 0 4px 15px rgba(31,60,51,.025); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
     .subject-card:hover { transform: translateY(-4px); border-color: #c6d5c4; box-shadow: var(--shadow); }
     .subject-top { display: flex; align-items: center; justify-content: space-between; text-decoration: none; }
